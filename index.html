@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sắc Thái Mường Then - Văn Hóa Thái Đen Điện Biên</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Philosopher:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        thaiRed: '#D81B60',       // Đỏ hồng thổ cẩm rực rỡ
+                        thaiCrimson: '#C2185B',   // Tím sẫm thêu thổ cẩm
+                        thaiLightBg: '#FAF8F5',   // Nền sáng kem trang nhã
+                        thaiGreen: '#2E7D32',     // Xanh lá tươi rừng hoa
+                        thaiGold: '#D48806',      // Vàng tơ tằm ấm áp
+                        thaiPurple: '#7B1FA2',    // Tím thổ cẩm Thái Đen
+                    },
+                    fontFamily: {
+                        heading: ['Philosopher', 'serif'],
+                        body: ['Montserrat', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #FAF8F5;
+            color: #2D3748;
+        }
+
+        /* Viền họa tiết hoa văn thêu thổ cẩm tươi tắn */
+        .brocade-border-top {
+            height: 6px;
+            background: repeating-linear-gradient(
+                90deg,
+                #D81B60 0px, #D81B60 20px,
+                #FBC02D 20px, #FBC02D 40px,
+                #2E7D32 40px, #2E7D32 60px,
+                #7B1FA2 60px, #7B1FA2 80px,
+                #ffffff 80px, #ffffff 100px
+            );
+        }
+
+        /* Card Hover Effects */
+        .cultural-card {
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .cultural-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 15px 30px -5px rgba(216, 27, 96, 0.15), 0 10px 15px -5px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FAF8F5;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #D81B60;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #7B1FA2;
+        }
+
+        /* Animation cho Tab transition */
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .tab-content.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Ban flower spin animation */
+        .flower-spin {
+            display: inline-block;
+            transition: transform 0.6s ease-in-out;
+        }
+        .flower-spin:hover {
+            transform: rotate(180deg) scale(1.2);
+        }
+
+        /* Confetti Canvas */
+        #confettiCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: 9999;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-thaiRed selection:text-white">
+
+    <canvas id="confettiCanvas"></canvas>
+
+    <!-- Top Pattern Bar -->
+    <div class="brocade-border-top sticky top-0 z-50"></div>
+
+    <!-- HEADER / HERO SECTION -->
+    <header id="hero-header" class="relative bg-gradient-to-b from-pink-50 via-white to-thaiLightBg py-10 px-4 text-center border-b border-pink-200 bg-cover bg-center transition-all duration-500">
+        <div id="hero-overlay" class="max-w-5xl mx-auto relative z-10">
+            <div class="inline-flex items-center justify-center p-3 mb-3 rounded-full bg-pink-100/90 border border-thaiRed text-thaiRed animate-bounce shadow-sm">
+                <span class="text-3xl flower-spin">🌸</span>
+            </div>
+            
+            <h1 id="site-title" class="font-heading text-4xl sm:text-6xl font-extrabold tracking-wider text-thaiRed mb-2 uppercase drop-shadow-md flex items-center justify-center gap-3">
+                <span class="text-2xl sm:text-4xl">🌸</span> SẮC THÁI MƯỜNG THEN <span class="text-2xl sm:text-4xl">🌸</span>
+            </h1>
+            
+            <p id="site-slogan" class="font-heading italic text-xl sm:text-2xl text-thaiPurple font-semibold mb-3 drop-shadow-sm">
+                "Chàư Tay Mương Thèn"
+            </p>
+            
+            <div class="w-32 h-1 bg-gradient-to-r from-transparent via-thaiRed to-transparent mx-auto mb-4"></div>
+
+            <p id="site-desc" class="max-w-2xl mx-auto text-gray-700 text-sm sm:text-base leading-relaxed px-2 bg-white/80 p-3 rounded-xl backdrop-blur-sm border border-pink-100 shadow-sm">
+                Trang web giới thiệu và quảng bá nét đẹp văn hóa, trang phục, ngôn ngữ và tình cảm người Thái Đen vùng Tây Bắc.
+            </p>
+
+        </div>
+    </header>
+
+    <!-- NAVIGATION TABS -->
+    <nav class="sticky top-1 z-40 bg-white/90 backdrop-blur-md border-y border-pink-200 py-3 shadow-sm">
+        <div class="max-w-4xl mx-auto flex flex-wrap justify-center gap-2 px-3">
+            <button onclick="switchTab('culture')" id="btn-culture" class="tab-btn px-5 py-2.5 rounded-xl font-semibold text-sm sm:text-base transition-all duration-300 border border-thaiRed bg-thaiRed text-white shadow-md flex items-center gap-2">
+                🌸 Không Gian Văn Hóa
+            </button>
+            <button onclick="switchTab('dictionary')" id="btn-dictionary" class="tab-btn px-5 py-2.5 rounded-xl font-semibold text-sm sm:text-base transition-all duration-300 border border-gray-200 bg-gray-50 text-gray-700 hover:text-thaiRed hover:border-thaiRed flex items-center gap-2">
+                📖 Từ Điển Mini Việt - Thái
+            </button>
+            <button onclick="switchTab('quiz')" id="btn-quiz" class="tab-btn px-5 py-2.5 rounded-xl font-semibold text-sm sm:text-base transition-all duration-300 border border-gray-200 bg-gray-50 text-gray-700 hover:text-thaiRed hover:border-thaiRed flex items-center gap-2">
+                🎯 Trắc Nghiệm Khám Phá
+            </button>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="max-w-6xl mx-auto px-4 py-8 flex-grow w-full">
+
+        <!-- TAB 1: KHÔNG GIAN VĂN HÓA -->
+        <section id="tab-culture" class="tab-content active">
+            <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4 border-b border-pink-200 pb-4">
+                <div>
+                    <h2 class="font-heading text-3xl font-bold text-thaiRed flex items-center gap-2">
+                        <span>🌸</span> Bảo Tồn & Vang Mãi Di Sản
+                    </h2>
+                    <p class="text-gray-500 text-sm mt-1">Bấm vào bất kỳ thẻ văn hóa nào để xem chi tiết hoặc tùy chỉnh hình ảnh / nội dung</p>
+                </div>
+                <button onclick="openCultureModal()" class="px-4 py-2.5 bg-thaiGreen hover:bg-emerald-700 text-white font-bold text-sm rounded-xl shadow-md flex items-center gap-2 transition-all shrink-0">
+                    <i class="fa-solid fa-circle-plus"></i> Thêm Mục Văn Hóa Mới
+                </button>
+            </div>
+
+            <!-- Dynamic Grid Cards -->
+            <div id="culture-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- JS Generated Culture Cards -->
+            </div>
+        </section>
+
+        <!-- TAB 2: TỪ ĐIỂM MINI VIỆT - THÁI -->
+        <section id="tab-dictionary" class="tab-content">
+            <div class="max-w-3xl mx-auto">
+                <div class="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4 border-b border-pink-200 pb-4">
+                    <div>
+                        <h2 class="font-heading text-3xl font-bold text-thaiRed flex items-center gap-2">
+                            <span>🌸</span> Từ Điển Mini Việt - Thái Đen
+                        </h2>
+                        <p class="text-gray-500 text-sm mt-1">Tra cứu cách phát âm tiếng Thái Đen Điện Biên chính xác</p>
+                    </div>
+                    <button onclick="openDictModal()" class="px-4 py-2 bg-thaiGreen hover:bg-emerald-700 text-white font-bold text-sm rounded-xl shadow-md flex items-center gap-2 transition-all shrink-0">
+                        <i class="fa-solid fa-plus"></i> Thêm Từ Mới
+                    </button>
+                </div>
+
+                <!-- Search Input Container -->
+                <div class="relative mb-8">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-thaiRed text-lg"></i>
+                    <input type="text" id="dict-search" oninput="searchDictionary()" placeholder="🌸 Nhập từ tiếng Việt hoặc phiên âm tiếng Thái... (VD: Xin chào, Yêu, Khăn Piêu)" 
+                           class="w-full pl-12 pr-4 py-3.5 bg-white border-2 border-pink-200 rounded-xl text-gray-800 placeholder-gray-400 focus:outline-none focus:border-thaiRed focus:ring-2 focus:ring-pink-100 shadow-sm text-base">
+                </div>
+
+                <!-- Dict Voice Recorder Alert Info -->
+                <div class="mb-6 p-3.5 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-800 flex items-center gap-2">
+                    <i class="fa-solid fa-microphone-lines text-base text-amber-600"></i>
+                    <span><strong>Dành cho nhà phát triển:</strong> Bấm nút <strong>"🎙️ Thu âm"</strong> ở từng từ để ghi âm giọng chuẩn trực tiếp qua micro. Bản ghi âm sẽ được lưu tự động!</span>
+                </div>
+
+                <!-- Result Cards List -->
+                <div id="dict-list" class="space-y-4">
+                    <!-- Dynamic rendering via JS -->
+                </div>
+
+                <div id="dict-empty" class="hidden text-center py-12 text-gray-500 bg-white rounded-xl border border-gray-200">
+                    <i class="fa-solid fa-book-open text-4xl mb-3 text-pink-300"></i>
+                    <p>Không tìm thấy từ vựng khớp với từ khóa của bạn.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: TRẮC NGHIỆM KHÁM PHÁ -->
+        <section id="tab-quiz" class="tab-content">
+            <div class="max-w-2xl mx-auto bg-white border border-pink-200 rounded-2xl p-6 sm:p-8 shadow-xl relative">
+                
+                <div class="text-center mb-8">
+                    <h2 class="font-heading text-3xl font-bold text-thaiRed mb-2 flex items-center justify-center gap-2">
+                        <span>🌸</span> Trắc Nghiệm Văn Hóa Thái <span>🌸</span>
+                    </h2>
+                    <p class="text-gray-600 text-sm">Thử thách am hiểu của bạn về phong tục & đời sống Thái Đen Mường Then</p>
+                </div>
+
+                <!-- Form Nhập Tên -->
+                <div id="quiz-user-form" class="mb-6 bg-pink-50/60 p-4 rounded-xl border border-pink-200">
+                    <label for="username" class="block text-sm font-semibold text-thaiPurple mb-2">🌸 Nhập tên / biệt danh của bạn:</label>
+                    <input type="text" id="username" placeholder="Ví dụ: Người con Điện Biên" 
+                           class="w-full px-4 py-2.5 bg-white border border-pink-300 rounded-lg text-gray-800 focus:outline-none focus:border-thaiRed">
+                </div>
+
+                <!-- Container Câu hỏi Quiz -->
+                <div id="quiz-container" class="space-y-6">
+                    <!-- Question elements generated by JS -->
+                </div>
+
+                <!-- Submit Button -->
+                <div class="mt-8 text-center">
+                    <button onclick="submitQuiz()" id="btn-submit-quiz" class="px-8 py-3 bg-gradient-to-r from-thaiRed to-thaiPurple text-white font-bold text-lg rounded-xl shadow-lg hover:brightness-110 transition-all">
+                        <i class="fa-solid fa-paper-plane mr-2"></i> Nộp Bài Trắc Nghiệm
+                    </button>
+                </div>
+
+                <!-- Modal Result -->
+                <div id="quiz-result" class="hidden mt-8 p-6 bg-gradient-to-br from-pink-50 to-white rounded-xl border-2 border-thaiRed text-center animate-fade-in shadow-inner">
+                    <i class="fa-solid fa-award text-5xl text-thaiGold mb-3 animate-bounce"></i>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-2">Kết Quả Của Bạn</h3>
+                    <p id="result-score" class="text-3xl font-extrabold text-thaiRed mb-4">0 / 3</p>
+                    <p id="result-message" class="text-gray-600 text-sm leading-relaxed mb-6"></p>
+
+                    <!-- Score History LocalStorage -->
+                    <div class="text-left border-t border-pink-200 pt-4">
+                        <h4 class="text-xs font-bold uppercase text-thaiPurple tracking-wider mb-3">🌸 Lịch sử điểm số (LocalStorage):</h4>
+                        <div id="score-history" class="max-h-36 overflow-y-auto space-y-2 text-xs text-gray-600 pr-1">
+                            <!-- JS Inject -->
+                        </div>
+                    </div>
+
+                    <button onclick="resetQuiz()" class="mt-6 px-6 py-2.5 bg-gray-800 hover:bg-black text-white text-sm font-semibold rounded-lg transition-all">
+                        <i class="fa-solid fa-rotate-right mr-1"></i> Làm lại bài test
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MODALS -->
+
+    <!-- MODAL 1: VIEW DETAIL CỦA VĂN HÓA -->
+    <div id="modal-culture-detail" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white border-2 border-pink-300 rounded-2xl max-w-3xl w-full p-6 relative shadow-2xl overflow-hidden my-8 max-h-[90vh] flex flex-col">
+            <button onclick="closeModal('modal-culture-detail')" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 bg-gray-100 hover:bg-gray-200 w-9 h-9 rounded-full flex items-center justify-center transition-all z-10">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            
+            <div id="culture-detail-content" class="space-y-4 overflow-y-auto pr-1">
+                <!-- JS Injected Detail -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: FORM THÊM / CHỈNH SỬA MỤC VĂN HÓA -->
+    <div id="modal-culture-form" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white border-2 border-pink-300 rounded-2xl max-w-lg w-full p-6 relative shadow-2xl max-h-[90vh] overflow-y-auto">
+            <button onclick="closeModal('modal-culture-form')" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 bg-gray-100 w-8 h-8 rounded-full flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <h3 id="culture-form-title" class="font-heading text-2xl font-bold text-thaiRed mb-4">🌸 Chỉnh Sửa Mục Văn Hóa</h3>
+            
+            <form onsubmit="handleCultureFormSubmit(event)" class="space-y-3 text-sm">
+                <input type="hidden" id="culture-id">
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-1">Tiêu đề chính:</label>
+                    <input type="text" id="culture-title" required class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-800 focus:border-thaiRed focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-1">Tên tiếng Thái:</label>
+                    <input type="text" id="culture-thaiName" class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-800 focus:border-thaiRed focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-1">Danh mục:</label>
+                    <select id="culture-category" class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-800 focus:border-thaiRed focus:outline-none">
+                        <option value="Kiến trúc">Kiến trúc</option>
+                        <option value="Nghệ thuật">Nghệ thuật</option>
+                        <option value="Ẩm thực">Ẩm thực</option>
+                        <option value="Trang phục">Trang phục</option>
+                        <option value="Đời sống">Đời sống</option>
+                        <option value="Âm nhạc">Âm nhạc</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-1">URL Hình ảnh:</label>
+                    <input type="text" id="culture-image" required class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-800 focus:border-thaiRed focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-1">Tóm tắt ngắn:</label>
+                    <textarea id="culture-desc" rows="2" required class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-800 focus:border-thaiRed focus:outline-none"></textarea>
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-1">Mô tả chi tiết:</label>
+                    <textarea id="culture-fullDesc" rows="3" class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-800 focus:border-thaiRed focus:outline-none"></textarea>
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-1">Hashtag (phân cách bằng dấu phẩy):</label>
+                    <input type="text" id="culture-tags" placeholder="VD: NhaSan, ThaiDen" class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-800 focus:border-thaiRed focus:outline-none">
+                </div>
+
+                <div class="flex justify-end gap-3 pt-3 border-t border-gray-100">
+                    <button type="button" onclick="closeModal('modal-culture-form')" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">Hủy</button>
+                    <button type="submit" class="px-5 py-2 bg-thaiRed text-white font-bold rounded-lg shadow-md hover:bg-thaiCrimson">Lưu Nội Dung</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: CÀI ĐẶT TRANG WEB (TIÊU ĐỀ & BANNER) -->
+    <div id="modal-site-settings" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white border-2 border-pink-300 rounded-2xl max-w-lg w-full p-6 relative shadow-2xl">
+            <button onclick="closeModal('modal-site-settings')" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 bg-gray-100 w-8 h-8 rounded-full flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <h3 class="font-heading text-2xl font-bold text-thaiRed mb-4">⚙️ Chỉnh Sửa Giao Diện Web & Ảnh Nền</h3>
+            
+            <form onsubmit="handleSiteSettingsSubmit(event)" class="space-y-4 text-sm">
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-1">Tên ứng dụng chính (Hero Title):</label>
+                    <input type="text" id="setting-title" required class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-800 focus:border-thaiRed focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-1">Khẩu hiệu / Tên tiếng Thái (Slogan):</label>
+                    <input type="text" id="setting-slogan" required class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-800 focus:border-thaiRed focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-1">Đoạn giới thiệu phụ:</label>
+                    <textarea id="setting-desc" rows="2" required class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-800 focus:border-thaiRed focus:outline-none"></textarea>
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-1">Link URL Hình Ảnh Nền Header:</label>
+                    <input type="text" id="setting-bg-url" placeholder="VD: https://example.com/banner-thai.jpg" class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-800 focus:border-thaiRed focus:outline-none">
+                </div>
+
+                <div class="flex justify-end gap-3 pt-3 border-t border-gray-100">
+                    <button type="button" onclick="closeModal('modal-site-settings')" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">Hủy</button>
+                    <button type="submit" class="px-5 py-2 bg-thaiRed text-white font-bold rounded-lg shadow-md hover:bg-thaiCrimson">Lưu Thay Đổi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: THÊM / SỬA DỤNG CỤ SINH HOẠT -->
+    <div id="modal-tool-form" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white border-2 border-pink-300 rounded-2xl max-w-md w-full p-6 relative shadow-2xl">
+            <button onclick="closeModal('modal-tool-form')" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 bg-gray-100 w-8 h-8 rounded-full flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <h3 id="tool-form-title" class="font-heading text-xl font-bold text-thaiRed mb-4">🌸 Chỉnh Sửa Dụng Cụ Sinh Hoạt</h3>
+            
+            <form onsubmit="handleToolFormSubmit(event)" class="space-y-3 text-sm">
+                <input type="hidden" id="tool-id">
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-1">Tên dụng cụ:</label>
+                    <input type="text" id="tool-name" required class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-800 focus:border-thaiRed focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-1">Tên tiếng Thái / Phiên âm:</label>
+                    <input type="text" id="tool-thaiName" class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-800 focus:border-thaiRed focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-1">Link URL Ảnh dụng cụ:</label>
+                    <input type="text" id="tool-image" required class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-800 focus:border-thaiRed focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-1">Công dụng & Ý nghĩa:</label>
+                    <textarea id="tool-desc" rows="3" required class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-800 focus:border-thaiRed focus:outline-none"></textarea>
+                </div>
+
+                <div class="flex justify-end gap-3 pt-3 border-t border-gray-100">
+                    <button type="button" onclick="closeModal('modal-tool-form')" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg">Hủy</button>
+                    <button type="submit" class="px-5 py-2 bg-thaiRed text-white font-bold rounded-lg shadow-md">Lưu Dụng Cụ</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 3: FORM THÊM / CHỈNH SỬA TỪ ĐIỂN -->
+    <div id="modal-dict-form" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+        <div class="bg-white border-2 border-pink-300 rounded-2xl max-w-lg w-full p-6 relative shadow-2xl">
+            <button onclick="closeModal('modal-dict-form')" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 bg-gray-100 w-8 h-8 rounded-full flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <h3 id="dict-form-title" class="font-heading text-2xl font-bold text-thaiRed mb-4">🌸 Chỉnh Sửa Từ Vựng</h3>
+            
+            <form onsubmit="handleDictFormSubmit(event)" class="space-y-4 text-sm">
+                <input type="hidden" id="dict-id">
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-1">Từ Tiếng Việt:</label>
+                    <input type="text" id="dict-viet" required class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-800 focus:border-thaiRed focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-1">Từ Tiếng Thái:</label>
+                    <input type="text" id="dict-thai" required class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-800 focus:border-thaiRed focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-1">Cách phát âm:</label>
+                    <input type="text" id="dict-pronounce" required class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-800 focus:border-thaiRed focus:outline-none">
+                </div>
+                <div>
+                    <label class="block text-gray-700 font-semibold mb-1">Ví dụ câu:</label>
+                    <textarea id="dict-example" rows="2" required class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-lg text-gray-800 focus:border-thaiRed focus:outline-none"></textarea>
+                </div>
+
+                <div class="flex justify-end gap-3 pt-3 border-t border-gray-100">
+                    <button type="button" onclick="closeModal('modal-dict-form')" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300">Hủy</button>
+                    <button type="submit" class="px-5 py-2 bg-thaiRed text-white font-bold rounded-lg shadow-md hover:bg-thaiCrimson">Lưu Từ Vựng</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="bg-white border-t border-pink-200 py-6 text-center text-xs text-gray-500 mt-12">
+        <div class="max-w-4xl mx-auto px-4">
+            <p class="font-heading text-sm text-thaiRed font-bold mb-1 flex items-center justify-center gap-1">
+                🌸 SẮC THÁI MƯỜNG THEN 🌸
+            </p>
+            <p class="mb-2 text-gray-600">Ứng dụng quảng bá bản sắc văn hóa và tình cảm người Thái Đen - Điện Biên</p>
+            <div class="brocade-border-top max-w-md mx-auto my-3 opacity-70"></div>
+            <p>&copy; 2026 Sắc Thái Mường Then. Chạy hoàn toàn trên trình duyệt client-side.</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC FULLY FIXED -->
+    <script>
+        /* ==========================================
+           DEFAULT DATA INITIALIZATION
+           ========================================== */
+        const defaultCultureData = [
+            {
+                id: 1,
+                title: "Nhà sàn",
+                thaiName: "Khàu Cút / Hươn hạn",
+                category: "Kiến trúc",
+                image: "https://static-images.vanhoanghethuat.vn/datasite///201807/BAI_VIET_11854/2020_9_4_8622.jpg?width=0&s=YfXhJ3QlKltsoDqSIrFIFA",
+                desc: "Nhà sàn Thái Đen với mái hình mai rùa cong độc đáo. Điểm đặc trưng nhất là biểu tượng Khàu Cút ở hai đầu gài mái - biểu tượng tình yêu, lòng trung thành và nguồn gốc tâm linh.",
+                fullDesc: "Nhà sàn của người Thái Đen Điện Biên (Hươn hạn) nổi tiếng với mái hình mai rùa cong vút. Hai đầu nóc nhà được trang trí bằng Khàu Cút - cặp sừng gỗ chạm khắc hoa văn tinh xảo gài chéo nhau. Khàu Cút không chỉ là trang trí kiến trúc mà còn mang ý nghĩa tâm linh sâu sắc, thể hiện lòng kính trọng tổ tiên, ghi dấu di cư văn hóa và biểu tượng cho tình yêu đôi lứa thủy chung.",
+                tags: ["NhaSanKhauCut", "ThaiDen", "KienTruc"]
+            },
+            {
+                id: 2,
+                title: "Điệu múa Xòe Thái",
+                thaiName: "Xòe Tay",
+                category: "Nghệ thuật",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTz2wwQtwpnsYlZzYmZhjMhzdOp2SklD1L8vuMjCxuE9A&s=10",
+                desc: "Di sản văn hóa phi vật thể đại diện của nhân loại do UNESCO ghi danh. Múa Xòe là biểu tượng của sự đoàn kết, 'Không xòe không vui, không xòe lúa không tốt'.",
+                fullDesc: "Múa Xòe (e vong) là sinh hoạt văn hóa tinh thần không thể thiếu trong các dịp lễ hội, ngày vui của người Thái. Có 6 điệu xòe cổ cơ bản: Khắm khen (Cầm tay nhau cùng xòe); Khắm khăn mời lẩu (Nâng khăn mời rượu); Phá xí (Bổ bốn); Đổn hôn (Bước tiến lùi); Nhôm khăn (Tung khăn); Ổm lọm tốp mứ (Đi vòng tròn vỗ tay) . Nhịp xòe gắn kết mọi người không phân biệt già trẻ, trai gái, khách hay chủ, tượng trưng cho tình đoàn kết cộng đồng bao la.",
+                tags: ["XoeThai", "UNESCO", "NgheThuat"]
+            },
+            {
+                id: 3,
+                title: "Ẩm thực truyền thống",
+                thaiName: "Món ngon Mường Then",
+                category: "Ẩm thực",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6rRsJvCSNn4FFq0VG2PGvgzv1XhtUQCsULBrazSYF3w&s=10",
+                desc: "Hương vị núi rừng nồng nàn với gia vị độc đáo Mắc khén, cá nướng gập (Pà Pỉnh Tộp), cơm lam, thịt trâu gác bếp và rượu xôi cẩm,...",
+                fullDesc: "Ẩm thực Thái Đen Điện Biên quyến rũ bởi gia vị tự nhiên đặc trưng như Mắc khén (hạt tiêu rừng) và Hạt dổi. Đặc sản đỉnh cao là Pà Pỉnh Tộp - cá suối tươi ướp gia vị xả, gừng, ớt, mắc khén rồi kẹp thanh tre nướng gập trên than hồng. Ăn kèm Cơm lam dẻo thơm hoặc Xôi ngũ sắc ướp lá rừng. Khiến mọi du khách đến với Tây Bắc lưu luyến mãi hương vị đậm hương sắc núi rừng.",
+                tags: ["PaPinhTop", "MacKhen", "ComLam"]
+            },
+            {
+                id: 4,
+                title: "Trang phục truyền thống",
+                thaiName: "Xửa cóm & Khăn Piêu",
+                category: "Trang phục",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSneYAndyGgqdpPkh8eS4_Nha6QnbAEW0KJ2esDy8eB-Q&s=10",
+                desc: "Tôn vinh nét đẹp với Áo cóm (nữ), Áo chàm (nam), Khăn Piêu thêu tay tinh xảo và dây Xà tích bạc. Đặc biệt áo khoác dài đem chàm (Xửa luồng) người Thái Đen.",
+                fullDesc: "Trang phục phụ nữ Thái Đen gồm Áo cóm bó sát tôn đường nét mềm mại với hàng cúc bạc hình con bướm/con ve (mạc pém), váy thiết nhung dài thướt tha và Khăn Piêu thêu hoa văn hình ngọn cây, quả trám. Đặc biệt, áo Xửa luồng (áo khoác dài chàm) người Thái Đen mặc trang trọng trong đám tang tỏ lòng kính trọng tổ tiên, trong khi người Thái Trắng lại hay mặc dịp lễ hội.",
+                tags: ["AoCom", "KhanPieu", "XuaLuong"]
+            },
+            {
+                id: 5,
+                title: "Dụng cụ sinh hoạt",
+                thaiName: "Đồ dùng mây tre",
+                category: "Đời sống",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3fy3uAZUT1ucZlvJMYbh7vQEJmjG4AtYVJAW3BX1iaQ&s=10",
+                desc: "Các vật dụng gắn liền với lao động & sinh hoạt hàng ngày: Lếp (giỏ đựng đồ Thái), Bèm (giỏ mây đựng đồ quan trọng), Ép khẩu (hộp xôi), Mỏ nửng (chõ đồ xôi), Hổ tà háng (bàn mây), Kà xà (dụng cụ bắt cá), Muồng (giỏ cá), Xay (dụng cụ bắt cá), Tắng bài (ghế mây),...",
+                fullDesc: "Người Thái khéo léo đan đát mây tre làm nên những công cụ sinh hoạt bền đẹp: Ép khẩu (hộp đựng xôi dẻo lâu), Mỏ nửng (chõ gỗ hoặc đồng đồ xôi thơm dẻo), Bèm (giỏ đựng trang sức may mặc), Lếp (nón lá rộng vành che nắng nương rẫy), Tắng bài (ghế mây tròn thấp) và Kà sà/Hổ tà háng đựng nông sản.",
+                tags: ["EpKhau", "MoNung", "DungCuThai"]
+            },
+            {
+                id: 6,
+                title: "Âm nhạc: Tính Tảu",
+                thaiName: "Tính Tảu / Đàn Tính",
+                category: "Âm nhạc",
+                image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfmtBoxm8m6aPz4mvTlvSOBBJfZsCAdKKimYoiRrGV-Q&s=10",
+                desc: "Đàn Tính Tảu làm từ bầu rượu khô, cần đàn dài bằng gỗ dẻo. Âm thanh réo rắt linh hồn của các điệu Then, hội xòe và trao duyên nam nữ đêm xuân. và có nhiều giai điệu hát Thái nổi tiếng",
+                fullDesc: "Đàn Tính Tảu (hay Đàn Tính) là nhạc cụ dây gẩy truyền thống. Quả bầu khô làm hộp cộng âm, mặt bầu bọc da trăn hoặc gỗ mỏng, cần đàn bằng gỗ xoan dẻo dài. Tiếng đàn Tính Tảu khi rộn rã rủ rê múa xòe, khi thì thầm tha thiết lời hát Then trao duyên giữa núi rừng Tây Bắc. • Khắp ú luk noan (Hát ru con): Giai điệu nhẹ nhàng, sâu lắng đưa trẻ vào giấc ngủ và nuôi dưỡng tâm hồn từ thuở nôi. • Khắp báo sao (Hát giao duyên): Cuộc hát đối đáp giữa các chàng trai, cô gái. Đây được coi là \"vũ khí tình yêu\" giúp họ tìm hiểu và nên duyên vợ chồng. • Khắp mừng nhà mới, khắp đám cưới: Các điệu hát chúc tụng, ca ngợi bản mường đổi mới, mang không khí tươi vui, rộn ràng. • Khắp mo (Hát trong nghi lễ): Lối hát do các thầy mo đảm nhiệm trong lễ cúng bản, cúng mường hoặc tiễn biệt người quá cố, mang sắc thái linh thiêng.",
+                tags: ["TinhTau", "khaptay", "HatThen"]
+            }
+        ];
+
+        const defaultDictData = [
+            { id: 1, viet: "Xin chào", thai: "Hắc chao", pronounce: "Hặc chao", example: "Chao pi nọng hặc sường (Xin chào quý chị em)" },
+            { id: 2, viet: "Ăn cơm", thai: "Kin khẩu", pronounce: "Kìn khẩu", example: "Đụk mời ải êm kìn khẩu. (Con mời bố mẹ ăn cơm)" },
+            { id: 3, viet: "Uống nước", thai: "Kin nặm", pronounce: "Kin nặm", example: "Mời nọng kìn năm ún. (Mời em uống nước ấm)" },
+            { id: 4, viet: "Đẹp / Xinh đẹp", thai: "Chăn", pronounce: "Khăn/ chăn", example: "Xảo tay khăn hênh lò. (Gái Thái rất xinh đẹp)" },
+            { id: 5, viet: "Yêu / Thương", thai: "Hặc", pronounce: "Hặc", example: "Ai hặc nọng. (Anh thương em)" },
+            { id: 6, viet: "Nhà", thai: "Hươn", pronounce: "Hươn", example: "Hươn han. (Nhà sàn)" },
+            { id: 7, viet: "Khăn Piêu", thai: "Khăn Piêu", pronounce: "Khằn Piều", example: "Nọng nhinh đàng siêu khằn piều. (Em gái đang thêu khăn tiêu)" },
+            { id: 8, viet: "Múa Xòe", thai: "Xe vong", pronounce: "Xe vong", example: "Pi nọng khắm khèn xe vong. (chị em cầm tay múa xòe)" },
+            { id: 9, viet: "Áo cóm", thai: "Xửa cóm", pronounce: "Xửa cỏm", example: "Chiềng ma, nọng lảy êm máy sửa cỏm máu hẩu. (Tết đến, em được mẹ may áo cóm mới cho)" }
+        ];
+
+        const defaultQuizData = [
+            {
+                id: 1,
+                question: "Biểu tượng Khàu Cút gắn ở hai đầu nóc nhà sàn người Thái Đen tượng trưng cho điều gì?",
+                options: [
+                    "A. Chỉ là hoa văn trang trí cho đẹp nhà",
+                    "B. Biểu tượng tình yêu, lòng trung thành và ghi dấu di cư truyền thống",
+                    "C. Dùng để xua đuổi muỗi núi rừng",
+                    "D. Đánh dấu nhà của thầy tào"
+                ],
+                correct: 1
+            },
+            {
+                id: 2,
+                question: "Áo khoác dài đen chàm (Xửa luồng) được người Thái Đen Điện Biên thường mặc trong dịp nào?",
+                options: [
+                    "A. Mặc khi đi làm nương rẫy hàng ngày",
+                    "B. Mặc trong các nghi lễ trang trọng đặc biệt là đám tang tỏ lòng tôn kính",
+                    "C. Mặc đi bơi ở dòng sông Nậm Rốm",
+                    "D. Mặc trong các ngày hội thể thao"
+                ],
+                correct: 1
+            },
+            {
+                id: 3,
+                question: "Món ăn đặc sản cá suối ướp gia vị Mắc khén kẹp thanh tre nướng gập của người Thái có tên là gì?",
+                options: [
+                    "A. Cơm Lam",
+                    "B. Nhót xốt chẩm chéo",
+                    "C. Pà Pỉnh Tộp",
+                    "D. Măng đắng xào"
+                ],
+                correct: 2
+            }
+        ];
+
+        const defaultToolsData = [
+            { id: 1, name: "Lếp", thaiName: "Giỏ đeo", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfmWtrimHrBy07c3Zp9VBtt6wSg1-Pc_Z48WY-6I5JTg&s=10", desc: "Giỏ mây đeo hông đựng đồ của người Thái." },
+            { id: 2, name: "Bèm", thaiName: "Giỏ mây", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9hkex7myB6g8jbjey50a6hS_okFtKMXyD9MOF5xtW2A&s=10", desc: "Giỏ mây tinh xảo dùng để cất giữ đồ trang sức, vải vóc và quần áo quý." },
+            { id: 3, name: "Ép khẩu", thaiName: "Hộp đựng xôi", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLhzpOXaRv4qX838YuNTiq6vmW3omB97VqQWAUMYorqA&s=10", desc: "Hộp đan bằng mây tre giữ cho xôi nóng lâu và dẻo thơm suốt cả ngày." },
+            { id: 4, name: "Mỏ nửng", thaiName: "Chõ đồ xôi", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUWZ41gOoM2PlHBuiJaJsy3ZAj0Y3DlThDHl7IYxfUWg&s=10", desc: "Chõ gỗ kết hợp nỉ nửng đan mây để đồ xôi cẩm và nếp nương." },
+            { id: 5, name: "Hổ tà háng", thaiName: "Bàn mây/tre", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUDavgSgSsU7pxNBOxSHDewoWWwPqqXWBmDT3T7Nc1BQ&s=10", desc: "Bàn đan bằng mây/tre để làm ăn kết hợp với ghế mây, gia đình người Thái quây quần sum họp bên nhau." },
+            { id: 6, name: "Kà xà", thaiName: "Dụng cụ bắt cá", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGgiJPhw8nwCLoVzDdfeKDOCWeJ0padMqpYz9XzujySw&s=10", desc: "Dụng cụ bắt cá được người dân đan tay bằng sợi chỉ rất tỉ mỉ dùng để đi xúc cá khi có lũ,..." },
+            { id: 7, name: "Muồng", thaiName: "Giỏ tre đựng cá, tôm, cua", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR7KISlaqdXq08mknxEGpvNghOut8OlY5vMHtvhDSi2Kw&s=10", desc: "Giỏ tre đan thủ công đựng cá, chỉ có thể đưa cá vào 1 chiều cá không nhảy ra được." },
+            { id: 8, name: "Xay", thaiName: "Dụng cụ bẫy cá", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZkoskgkfGZ6ppxhVBzeaj8iFASIcwiRDu4YKPrff32A&s=10", desc: "Dụng cụ đan bằng tre thủ công được người dân dùng để đi bẫy cá,..." },
+            { id: 9, name: "Tắng bài", thaiName: "Ghế mây tròn", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT_TAot_ewIEz5J39H80z81NRQFvICpUSfklEI92iPlLw&s=10", desc: "Ghế mây đan tròn thấp người Thái dùng quây quần bên bếp lửa sàn." }
+        ];
+
+        // State variables backed by LocalStorage
+        let cultureData = JSON.parse(localStorage.getItem('muongThenCultureData')) || defaultCultureData;
+        let dictData = JSON.parse(localStorage.getItem('muongThenDictData')) || defaultDictData;
+        let toolsData = JSON.parse(localStorage.getItem('muongThenToolsData')) || defaultToolsData;
+        let quizData = defaultQuizData;
+
+        function saveCultureData() {
+            localStorage.setItem('muongThenCultureData', JSON.stringify(cultureData));
+            renderCultureCards();
+        }
+
+        function saveDictData() {
+            localStorage.setItem('muongThenDictData', JSON.stringify(dictData));
+            searchDictionary();
+        }
+
+        function saveToolsData() {
+            localStorage.setItem('muongThenToolsData', JSON.stringify(toolsData));
+        }
+
+        function resetToDefaultData() {
+            if (confirm("Bạn có chắc chắn muốn khôi phục toàn bộ dữ liệu gốc không? Các chỉnh sửa cá nhân sẽ được dọn dẹp.")) {
+                localStorage.removeItem('muongThenCultureData');
+                localStorage.removeItem('muongThenDictData');
+                localStorage.removeItem('muongThenToolsData');
+                localStorage.removeItem('muongThenSiteSettings');
+                cultureData = [...defaultCultureData];
+                dictData = [...defaultDictData];
+                toolsData = [...defaultToolsData];
+                saveCultureData();
+                saveDictData();
+                saveToolsData();
+                applySiteSettings();
+                alert("Đã khôi phục dữ liệu gốc thành công!");
+            }
+        }
+
+        /* ==========================================
+           SITE SETTINGS (HERO & BANNER CONFIG)
+           ========================================== */
+        const defaultSiteSettings = {
+            title: 'SẮC THÁI MƯỜNG THEN',
+            slogan: '"Chàư Tay Mương Thèn"',
+            desc: 'Trang web giới thiệu và quảng bá nét đẹp văn hóa, trang phục, ngôn ngữ và tình cảm người Thái Đen vùng Tây Bắc.',
+            bgUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTHZxykHT24sAOHGLr7nd-04OdxQcizFa5dAHUrlJRSbg&s=10'
+        };
+
+        function openSiteSettingsModal() {
+            const settings = JSON.parse(localStorage.getItem('muongThenSiteSettings')) || defaultSiteSettings;
+            document.getElementById('setting-title').value = settings.title;
+            document.getElementById('setting-slogan').value = settings.slogan;
+            document.getElementById('setting-desc').value = settings.desc;
+            document.getElementById('setting-bg-url').value = settings.bgUrl || '';
+            openModal('modal-site-settings');
+        }
+
+        function handleSiteSettingsSubmit(e) {
+            e.preventDefault();
+            const settings = {
+                title: document.getElementById('setting-title').value.trim(),
+                slogan: document.getElementById('setting-slogan').value.trim(),
+                desc: document.getElementById('setting-desc').value.trim(),
+                bgUrl: document.getElementById('setting-bg-url').value.trim()
+            };
+            localStorage.setItem('muongThenSiteSettings', JSON.stringify(settings));
+            applySiteSettings();
+            closeModal('modal-site-settings');
+        }
+
+        function applySiteSettings() {
+            const settings = JSON.parse(localStorage.getItem('muongThenSiteSettings')) || defaultSiteSettings;
+
+            const titleElem = document.getElementById('site-title');
+            if (titleElem) {
+                titleElem.innerHTML = `<span class="text-2xl sm:text-4xl">🌸</span> ${settings.title} <span class="text-2xl sm:text-4xl">🌸</span>`;
+            }
+            const sloganElem = document.getElementById('site-slogan');
+            if (sloganElem) sloganElem.innerText = settings.slogan;
+
+            const descElem = document.getElementById('site-desc');
+            if (descElem) descElem.innerText = settings.desc;
+
+            const headerElem = document.getElementById('hero-header');
+            if (headerElem) {
+                if (settings.bgUrl) {
+                    headerElem.style.backgroundImage = `linear-gradient(rgba(255, 255, 255, 0.82), rgba(250, 248, 245, 0.92)), url('${settings.bgUrl}')`;
+                } else {
+                    headerElem.style.backgroundImage = 'none';
+                }
+            }
+        }
+
+        /* ==========================================
+           1. TAB SWITCHING LOGIC
+           ========================================== */
+        function switchTab(tabName) {
+            const tabs = ['culture', 'dictionary', 'quiz'];
+            
+            tabs.forEach(t => {
+                const content = document.getElementById(`tab-${t}`);
+                const btn = document.getElementById(`btn-${t}`);
+                
+                if (t === tabName) {
+                    content.classList.add('active');
+                    btn.classList.remove('bg-gray-50', 'text-gray-700', 'border-gray-200');
+                    btn.classList.add('bg-thaiRed', 'text-white', 'border-thaiRed', 'shadow-md');
+                } else {
+                    content.classList.remove('active');
+                    btn.classList.add('bg-gray-50', 'text-gray-700', 'border-gray-200');
+                    btn.classList.remove('bg-thaiRed', 'text-white', 'border-thaiRed', 'shadow-md');
+                }
+            });
+        }
+
+        /* ==========================================
+           2. RENDER & CMS FOR CULTURE TAB
+           ========================================== */
+        function renderCultureCards() {
+            const container = document.getElementById('culture-grid');
+            if (!container) return;
+            container.innerHTML = '';
+
+            cultureData.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "cultural-card bg-white border border-pink-200 rounded-xl overflow-hidden shadow-sm flex flex-col relative group hover:border-thaiRed";
+                
+                const tagsHTML = (item.tags || []).map(t => `#${t}`).join(' ');
+
+                card.innerHTML = `
+                    <div class="relative overflow-hidden h-48 bg-pink-50 cursor-pointer" onclick="viewCultureDetail(${item.id})">
+                        <img src="${item.image}" 
+                             alt="${item.title}" 
+                             class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                             onerror="this.src='https://placehold.co/600x400/D81B60/FFFFFF?text=${encodeURIComponent(item.title)}'">
+                        <span class="absolute top-3 right-3 bg-thaiRed text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-sm">🌸 ${item.category}</span>
+                    </div>
+
+                    <div class="absolute top-3 left-3 flex gap-1.5 opacity-90">
+                        <button onclick="openCultureModal(${item.id}); event.stopPropagation();" title="Chỉnh sửa" class="bg-white/90 hover:bg-thaiRed hover:text-white text-thaiRed p-2 rounded-lg border border-pink-200 text-xs transition-all shadow-sm">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <button onclick="deleteCultureItem(${item.id}); event.stopPropagation();" title="Xóa" class="bg-white/90 hover:bg-red-600 hover:text-white text-red-500 p-2 rounded-lg border border-red-200 text-xs transition-all shadow-sm">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </div>
+
+                    <div class="p-5 flex-grow flex flex-col justify-between">
+                        <div class="cursor-pointer" onclick="viewCultureDetail(${item.id})">
+                            <h3 class="font-heading text-xl font-bold text-gray-800 hover:text-thaiRed transition-colors mb-0.5">🌸 ${item.title}</h3>
+                            <p class="text-xs text-thaiPurple font-semibold mb-2 italic">${item.thaiName || ''}</p>
+                            <p class="text-gray-600 text-sm leading-relaxed mb-4 line-clamp-3">
+                                ${item.desc}
+                            </p>
+                        </div>
+                        
+                        <div class="pt-3 border-t border-gray-100 flex justify-between items-center text-xs">
+                            <span class="text-thaiRed/80 font-medium italic">${tagsHTML}</span>
+                            <button onclick="viewCultureDetail(${item.id})" class="text-thaiRed font-bold hover:underline flex items-center gap-1">
+                                Chi tiết <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function viewCultureDetail(id) {
+            const item = cultureData.find(c => c.id === id);
+            if (!item) return;
+
+            const container = document.getElementById('culture-detail-content');
+
+            let toolsListHTML = '';
+            if (item.title.toLowerCase().includes("dụng cụ") || item.id === 5) {
+                toolsListHTML = `
+                    <div class="mt-6 pt-4 border-t border-pink-200">
+                        <div class="flex justify-between items-center mb-3">
+                            <h4 class="font-heading text-lg font-bold text-thaiRed">🌸 Bộ Dụng Cụ Sinh Hoạt Chi Tiết (${toolsData.length})</h4>
+                            <button onclick="openToolModal()" class="px-3 py-1 bg-thaiGreen text-white text-xs font-bold rounded-lg shadow hover:bg-emerald-700">
+                                <i class="fa-solid fa-plus mr-1"></i> Thêm Dụng Cụ
+                            </button>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+                            ${toolsData.map(t => `
+                                <div class="p-3 bg-pink-50/50 rounded-xl border border-pink-200 flex flex-col justify-between space-y-2">
+                                    <div class="h-28 rounded-lg overflow-hidden bg-white">
+                                        <img src="${t.image}" alt="${t.name}" class="w-full h-full object-cover"
+                                             onerror="this.src='https://placehold.co/400x300/D81B60/FFFFFF?text=${encodeURIComponent(t.name)}'">
+                                    </div>
+                                    <div>
+                                        <div class="flex justify-between items-center">
+                                            <h5 class="font-bold text-gray-800 text-sm">🌸 ${t.name}</h5>
+                                            <span class="text-[11px] text-thaiPurple font-semibold">${t.thaiName || ''}</span>
+                                        </div>
+                                        <p class="text-xs text-gray-600 mt-1 line-clamp-2">${t.desc}</p>
+                                    </div>
+                                    <div class="flex justify-end gap-1 pt-1 border-t border-pink-100">
+                                        <button onclick="openToolModal(${t.id})" class="px-2 py-1 bg-white text-thaiRed text-[11px] font-semibold border border-pink-200 rounded hover:bg-thaiRed hover:text-white transition-all">
+                                            ✏️ Sửa ảnh / chữ
+                                        </button>
+                                        <button onclick="deleteToolItem(${t.id})" class="px-2 py-1 bg-white text-red-500 text-[11px] font-semibold border border-red-200 rounded hover:bg-red-600 hover:text-white transition-all">
+                                            🗑️ Xóa
+                                        </button>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            }
+
+            container.innerHTML = `
+                <div class="relative h-64 sm:h-80 rounded-xl overflow-hidden mb-4 border border-pink-200">
+                    <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover"
+                         onerror="this.src='https://placehold.co/800x500/D81B60/FFFFFF?text=${encodeURIComponent(item.title)}'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                    <div class="absolute bottom-4 left-4 right-4 text-white">
+                        <span class="bg-thaiRed text-white text-xs font-bold px-3 py-1 rounded-full mb-2 inline-block">🌸 ${item.category}</span>
+                        <h2 class="font-heading text-2xl sm:text-3xl font-extrabold">${item.title}</h2>
+                        <p class="text-pink-200 font-semibold italic text-base">${item.thaiName || ''}</p>
+                    </div>
+                </div>
+
+                <div class="space-y-3 text-gray-700 text-sm leading-relaxed max-h-60 overflow-y-auto pr-2">
+                    <p class="text-base font-medium text-gray-800">${item.desc}</p>
+                    <div class="p-3.5 bg-pink-50/70 border-l-4 border-thaiRed rounded-r-lg text-gray-700 text-sm">
+                        ${item.fullDesc || item.desc}
+                    </div>
+                </div>
+
+                ${toolsListHTML}
+
+                <div class="pt-4 border-t border-gray-100 flex flex-wrap justify-between items-center gap-2">
+                    <div class="text-xs text-thaiPurple font-semibold font-mono">
+                        ${(item.tags || []).map(t => `#${t}`).join(' ')}
+                    </div>
+                    <button onclick="openCultureModal(${item.id})" class="px-4 py-2 bg-thaiRed text-white text-xs font-bold rounded-lg hover:bg-thaiCrimson flex items-center gap-1.5 shadow-sm">
+                        <i class="fa-solid fa-pen-to-square"></i> Chỉnh sửa mục này
+                    </button>
+                </div>
+            `;
+            openModal('modal-culture-detail');
+        }
+
+        /* CRUD FOR TOOLS INSIDE CULTURAL ITEMS */
+        function openToolModal(id = null) {
+            const titleElem = document.getElementById('tool-form-title');
+            if (id) {
+                const tool = toolsData.find(t => t.id === id);
+                if (!tool) return;
+                titleElem.innerText = "🌸 Chỉnh Sửa Dụng Cụ Sinh Hoạt";
+                document.getElementById('tool-id').value = tool.id;
+                document.getElementById('tool-name').value = tool.name;
+                document.getElementById('tool-thaiName').value = tool.thaiName || '';
+                document.getElementById('tool-image').value = tool.image;
+                document.getElementById('tool-desc').value = tool.desc;
+            } else {
+                titleElem.innerText = "🌸 Thêm Dụng Cụ Mới";
+                document.getElementById('tool-id').value = '';
+                document.getElementById('tool-name').value = '';
+                document.getElementById('tool-thaiName').value = '';
+                document.getElementById('tool-image').value = 'https://placehold.co/400x300/D81B60/FFFFFF?text=Dung+Cu+Moi';
+                document.getElementById('tool-desc').value = '';
+            }
+            openModal('modal-tool-form');
+        }
+
+        function handleToolFormSubmit(e) {
+            e.preventDefault();
+            const id = document.getElementById('tool-id').value;
+            const name = document.getElementById('tool-name').value.trim();
+            const thaiName = document.getElementById('tool-thaiName').value.trim();
+            const image = document.getElementById('tool-image').value.trim();
+            const desc = document.getElementById('tool-desc').value.trim();
+
+            if (id) {
+                const index = toolsData.findIndex(t => t.id == id);
+                if (index !== -1) {
+                    toolsData[index] = { ...toolsData[index], name, thaiName, image, desc };
+                }
+            } else {
+                toolsData.push({
+                    id: Date.now(),
+                    name, thaiName, image, desc
+                });
+            }
+
+            saveToolsData();
+            closeModal('modal-tool-form');
+            viewCultureDetail(5);
+        }
+
+        function deleteToolItem(id) {
+            if (confirm("Bạn có muốn xóa dụng cụ này khỏi danh sách?")) {
+                toolsData = toolsData.filter(t => t.id !== id);
+                saveToolsData();
+                viewCultureDetail(5);
+            }
+        }
+
+        function openCultureModal(id = null) {
+            closeModal('modal-culture-detail');
+            const form = document.getElementById('culture-form-title');
+            if (id) {
+                const item = cultureData.find(c => c.id === id);
+                form.innerText = "🌸 Chỉnh Sửa Mục Văn Hóa";
+                document.getElementById('culture-id').value = item.id;
+                document.getElementById('culture-title').value = item.title;
+                document.getElementById('culture-thaiName').value = item.thaiName || '';
+                document.getElementById('culture-category').value = item.category;
+                document.getElementById('culture-image').value = item.image;
+                document.getElementById('culture-desc').value = item.desc;
+                document.getElementById('culture-fullDesc').value = item.fullDesc || item.desc;
+                document.getElementById('culture-tags').value = (item.tags || []).join(', ');
+            } else {
+                form.innerText = "🌸 Thêm Mục Văn Hóa Mới";
+                document.getElementById('culture-id').value = '';
+                document.getElementById('culture-title').value = '';
+                document.getElementById('culture-thaiName').value = '';
+                document.getElementById('culture-category').value = 'Kiến trúc';
+                document.getElementById('culture-image').value = 'https://placehold.co/600x400/D81B60/FFFFFF?text=Hinh+Anh+Van+Hoa';
+                document.getElementById('culture-desc').value = '';
+                document.getElementById('culture-fullDesc').value = '';
+                document.getElementById('culture-tags').value = '';
+            }
+            openModal('modal-culture-form');
+        }
+
+        function handleCultureFormSubmit(e) {
+            e.preventDefault();
+            const id = document.getElementById('culture-id').value;
+            const title = document.getElementById('culture-title').value.trim();
+            const thaiName = document.getElementById('culture-thaiName').value.trim();
+            const category = document.getElementById('culture-category').value.trim();
+            const image = document.getElementById('culture-image').value.trim();
+            const desc = document.getElementById('culture-desc').value.trim();
+            const fullDesc = document.getElementById('culture-fullDesc').value.trim();
+            const tagsInput = document.getElementById('culture-tags').value;
+            const tags = tagsInput ? tagsInput.split(',').map(t => t.trim().replace(/^#/, '')) : [];
+
+            if (id) {
+                const index = cultureData.findIndex(c => c.id == id);
+                if (index !== -1) {
+                    cultureData[index] = { ...cultureData[index], title, thaiName, category, image, desc, fullDesc, tags };
+                }
+            } else {
+                const newObj = {
+                    id: Date.now(),
+                    title, thaiName, category, image, desc, fullDesc, tags
+                };
+                cultureData.unshift(newObj);
+            }
+
+            saveCultureData();
+            closeModal('modal-culture-form');
+        }
+
+        function deleteCultureItem(id) {
+            if (confirm("Bạn có chắc chắn muốn xóa mục văn hóa này không?")) {
+                cultureData = cultureData.filter(c => c.id !== id);
+                saveCultureData();
+            }
+        }
+
+        /* ==========================================
+           3. DICTIONARY CMS, SEARCH & AUDIO RECORDER
+           ========================================== */
+        function searchDictionary() {
+            const query = document.getElementById('dict-search') ? document.getElementById('dict-search').value.toLowerCase().trim() : '';
+            const filtered = dictData.filter(item => 
+                item.viet.toLowerCase().includes(query) ||
+                item.thai.toLowerCase().includes(query) ||
+                item.pronounce.toLowerCase().includes(query)
+            );
+            renderDictionary(filtered);
+        }
+
+        let recordingId = null;
+        let mediaRecorder = null;
+        let audioChunks = [];
+        let tempAudioBase64 = null;
+
+        function renderDictionary(data) {
+            const container = document.getElementById('dict-list');
+            const emptyState = document.getElementById('dict-empty');
+            if (!container) return;
+            
+            container.innerHTML = '';
+
+            if (data.length === 0) {
+                if (emptyState) emptyState.classList.remove('hidden');
+                return;
+            } else {
+                if (emptyState) emptyState.classList.add('hidden');
+            }
+
+            data.forEach(item => {
+                const card = document.createElement('div');
+                card.className = "p-4 sm:p-5 bg-white border border-pink-200 rounded-xl hover:border-thaiRed transition-all flex flex-col justify-between gap-4 shadow-sm group";
+                
+                const hasAudio = !!item.audioBase64;
+                const playBtnClass = hasAudio ? 'bg-thaiRed text-white hover:bg-thaiCrimson' : 'bg-pink-50 text-thaiRed border border-pink-200 hover:bg-thaiRed hover:text-white';
+                const playBtnText = hasAudio ? '🔊 Nghe phát âm thực (Sáng lập)' : '🔊 Nghe phát âm';
+
+                const isRecordingThis = recordingId === item.id;
+
+                card.innerHTML = `
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div class="space-y-1 flex-grow">
+                            <div class="flex items-center gap-3">
+                                <span class="text-lg font-bold text-gray-800">${item.viet}</span>
+                                <i class="fa-solid fa-arrow-right text-xs text-thaiRed"></i>
+                                <span class="text-lg font-bold text-thaiRed font-heading">🌸 ${item.thai}</span>
+                                ${hasAudio ? `<span class="bg-amber-100 text-amber-800 text-[10px] px-2 py-0.5 rounded-full font-bold border border-amber-300">🎙️ Đã thu âm</span>` : ''}
+                            </div>
+                            <p class="text-xs text-gray-500">
+                                <span class="text-thaiGreen font-semibold">Phát âm:</span> [${item.pronounce}]
+                            </p>
+                            <p class="text-xs italic text-gray-500 mt-1">
+                                💡 ${item.example}
+                            </p>
+                        </div>
+
+                        <div class="flex flex-wrap items-center gap-2 shrink-0">
+                            <button onclick="playDictAudio(${item.id})" 
+                                    class="px-3 py-2 ${playBtnClass} rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all shadow-sm">
+                                ${playBtnText}
+                            </button>
+
+                            ${!isRecordingThis ? `
+                                <button onclick="startDictRecording(${item.id})" 
+                                        class="px-3 py-2 bg-amber-500 hover:bg-amber-600 text-white rounded-lg text-xs font-semibold flex items-center gap-1 transition-all shadow-sm">
+                                    <i class="fa-solid fa-microphone"></i> Thu âm
+                                </button>
+                            ` : `
+                                <button onclick="stopDictRecording(${item.id})" 
+                                        class="px-3 py-2 bg-red-600 animate-pulse text-white rounded-lg text-xs font-bold flex items-center gap-1 shadow-md">
+                                    <i class="fa-solid fa-circle-stop"></i> ⏹️ Dừng thu âm
+                                </button>
+                            `}
+
+                            ${hasAudio ? `
+                                <button onclick="deleteDictAudio(${item.id})" title="Xóa bản ghi âm này" class="p-2 bg-amber-50 hover:bg-red-500 hover:text-white text-amber-700 border border-amber-200 rounded-lg text-xs transition-all">
+                                    <i class="fa-solid fa-microphone-slash"></i>
+                                </button>
+                            ` : ''}
+
+                            <button onclick="openDictModal(${item.id})" title="Sửa" class="p-2 bg-gray-50 hover:bg-thaiRed hover:text-white text-gray-600 border border-gray-200 rounded-lg text-xs transition-all">
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
+                            <button onclick="deleteDictItem(${item.id})" title="Xóa" class="p-2 bg-gray-50 hover:bg-red-600 hover:text-white text-red-500 border border-gray-200 rounded-lg text-xs transition-all">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    ${tempAudioBase64 && recordingId === item.id ? `
+                        <div class="p-3 bg-amber-50 border border-amber-300 rounded-lg flex items-center justify-between gap-3 text-xs">
+                            <span class="font-bold text-amber-900">✨ Bản ghi âm mới vừa tạo:</span>
+                            <div class="flex gap-2">
+                                <button onclick="previewTempAudio()" class="px-2.5 py-1 bg-amber-600 text-white font-semibold rounded hover:bg-amber-700">🎧 Nghe thử</button>
+                                <button onclick="saveTempAudio(${item.id})" class="px-2.5 py-1 bg-thaiGreen text-white font-bold rounded hover:bg-emerald-700">💾 Lưu bản ghi</button>
+                                <button onclick="cancelTempAudio()" class="px-2 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">Hủy</button>
+                            </div>
+                        </div>
+                    ` : ''}
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        async function startDictRecording(id) {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream);
+                audioChunks = [];
+                recordingId = id;
+                tempAudioBase64 = null;
+
+                mediaRecorder.ondataavailable = (e) => audioChunks.push(e.data);
+                mediaRecorder.onstop = () => {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    const reader = new FileReader();
+                    reader.readAsDataURL(audioBlob);
+                    reader.onloadend = () => {
+                        tempAudioBase64 = reader.result;
+                        searchDictionary();
+                    };
+                };
+
+                mediaRecorder.start();
+                searchDictionary();
+            } catch (err) {
+                alert("⚠️ Vui lòng cấp quyền Micro trên trình duyệt để ghi âm giọng nói.");
+            }
+        }
+
+        function stopDictRecording(id) {
+            if (mediaRecorder && mediaRecorder.state !== "inactive") {
+                mediaRecorder.stop();
+                if (mediaRecorder.stream) {
+                    mediaRecorder.stream.getTracks().forEach(track => track.stop());
+                }
+            }
+        }
+
+        function previewTempAudio() {
+            if (tempAudioBase64) {
+                const audio = new Audio(tempAudioBase64);
+                audio.play();
+            }
+        }
+
+        function saveTempAudio(id) {
+            const item = dictData.find(d => d.id === id);
+            if (item && tempAudioBase64) {
+                item.audioBase64 = tempAudioBase64;
+                saveDictData();
+                tempAudioBase64 = null;
+                recordingId = null;
+                alert("✅ Đã lưu bản ghi âm giọng đọc thành công!");
+            }
+        }
+
+        function cancelTempAudio() {
+            tempAudioBase64 = null;
+            recordingId = null;
+            searchDictionary();
+        }
+
+        function deleteDictAudio(id) {
+            const item = dictData.find(d => d.id === id);
+            if (item && confirm(`Bạn muốn xóa bản ghi âm thực tế của từ "${item.thai}"?`)) {
+                delete item.audioBase64;
+                saveDictData();
+            }
+        }
+
+        function playDictAudio(id) {
+            const item = dictData.find(d => d.id === id);
+            if (!item) return;
+
+            if (item.audioBase64) {
+                try {
+                    const audio = new Audio(item.audioBase64);
+                    const playPromise = audio.play();
+                    if (playPromise !== undefined) {
+                        playPromise.catch(error => {
+                            console.warn("Lỗi khi phát audio ghi âm:", error);
+                            speakTextFallback(item.pronounce || item.viet);
+                        });
+                    }
+                } catch (e) {
+                    speakTextFallback(item.pronounce || item.viet);
+                }
+            } else {
+                speakTextFallback(item.pronounce || item.viet);
+            }
+        }
+
+        function speakTextFallback(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'vi-VN';
+                utterance.rate = 0.85;
+                window.speechSynthesis.speak(utterance);
+            } else {
+                alert(`🔊 Phát âm từ: "${text}"`);
+            }
+        }
+
+        function openDictModal(id = null) {
+            const formTitle = document.getElementById('dict-form-title');
+            if (id) {
+                const item = dictData.find(d => d.id === id);
+                formTitle.innerText = "🌸 Chỉnh Sửa Từ Vựng";
+                document.getElementById('dict-id').value = item.id;
+                document.getElementById('dict-viet').value = item.viet;
+                document.getElementById('dict-thai').value = item.thai;
+                document.getElementById('dict-pronounce').value = item.pronounce;
+                document.getElementById('dict-example').value = item.example;
+            } else {
+                formTitle.innerText = "🌸 Thêm Từ Vựng Mới";
+                document.getElementById('dict-id').value = '';
+                document.getElementById('dict-viet').value = '';
+                document.getElementById('dict-thai').value = '';
+                document.getElementById('dict-pronounce').value = '';
+                document.getElementById('dict-example').value = '';
+            }
+            openModal('modal-dict-form');
+        }
+
+        function handleDictFormSubmit(e) {
+            e.preventDefault();
+            const id = document.getElementById('dict-id').value;
+            const viet = document.getElementById('dict-viet').value.trim();
+            const thai = document.getElementById('dict-thai').value.trim();
+            const pronounce = document.getElementById('dict-pronounce').value.trim();
+            const example = document.getElementById('dict-example').value.trim();
+
+            if (id) {
+                const index = dictData.findIndex(d => d.id == id);
+                if (index !== -1) {
+                    dictData[index] = { ...dictData[index], viet, thai, pronounce, example };
+                }
+            } else {
+                dictData.unshift({
+                    id: Date.now(),
+                    viet, thai, pronounce, example
+                });
+            }
+
+            saveDictData();
+            closeModal('modal-dict-form');
+        }
+
+        function deleteDictItem(id) {
+            if (confirm("Bạn có chắc chắn muốn xóa từ vựng này không?")) {
+                dictData = dictData.filter(d => d.id !== id);
+                saveDictData();
+            }
+        }
+
+        /* ==========================================
+           4. QUIZ RENDER & SUBMIT
+           ========================================== */
+        function renderQuiz() {
+            const container = document.getElementById('quiz-container');
+            if (!container) return;
+            container.innerHTML = '';
+
+            quizData.forEach((q, idx) => {
+                const qBox = document.createElement('div');
+                qBox.className = "p-4 sm:p-5 bg-pink-50/50 rounded-xl border border-pink-200 space-y-3";
+                
+                let optionsHTML = q.options.map((opt, oIdx) => `
+                    <label class="flex items-center p-3 bg-white border border-pink-200 rounded-lg cursor-pointer hover:bg-pink-100/50 transition-all text-sm font-medium text-gray-700">
+                        <input type="radio" name="question_${q.id}" value="${oIdx}" class="w-4 h-4 text-thaiRed focus:ring-thaiRed border-pink-300 mr-3">
+                        <span>${opt}</span>
+                    </label>
+                `).join('');
+
+                qBox.innerHTML = `
+                    <h3 class="font-bold text-gray-800 text-sm sm:text-base flex items-start gap-2">
+                        <span class="text-thaiRed font-bold shrink-0">Câu ${idx + 1}:</span>
+                        <span>${q.question}</span>
+                    </h3>
+                    <div class="space-y-2 pl-2">
+                        ${optionsHTML}
+                    </div>
+                `;
+                container.appendChild(qBox);
+            });
+        }
+
+        function submitQuiz() {
+            const usernameInput = document.getElementById('username');
+            const username = usernameInput ? (usernameInput.value.trim() || 'Khách viếng thăm') : 'Khách viếng thăm';
+            let score = 0;
+
+            for (let q of quizData) {
+                const selected = document.querySelector(`input[name="question_${q.id}"]:checked`);
+                if (!selected) {
+                    alert(`Bạn chưa trả lời tất cả các câu hỏi! Hãy hoàn thành toàn bộ bài test nhé.`);
+                    return;
+                }
+                if (parseInt(selected.value) === q.correct) {
+                    score++;
+                }
+            }
+
+            document.getElementById('result-score').innerText = `${score} / ${quizData.length}`;
+            const msgElem = document.getElementById('result-message');
+            
+            if (score === quizData.length) {
+                msgElem.innerHTML = `🎉 Tuyệt vời, <strong>${username}</strong>! Bạn là một chuyên gia thực sự am hiểu sâu sắc về văn hóa Thái Đen Mường Then!`;
+                triggerConfetti();
+            } else if (score >= 1) {
+                msgElem.innerHTML = `👏 Tốt lắm, <strong>${username}</strong>! Bạn đã có những hiểu biết rất đẹp về văn hóa Thái Đen Điện Biên.`;
+            } else {
+                msgElem.innerHTML = `🌸 Cảm ơn <strong>${username}</strong>! Hãy khám phá thêm ở Tab "Không Gian Văn Hóa" để tìm hiểu nhiều hơn nhé.`;
+            }
+
+            saveQuizResult(username, score, quizData.length);
+
+            document.getElementById('quiz-result').classList.remove('hidden');
+            document.getElementById('btn-submit-quiz').classList.add('hidden');
+        }
+
+        function saveQuizResult(name, score, total) {
+            let history = JSON.parse(localStorage.getItem('muongThenQuizHistory')) || [];
+            const newRecord = {
+                name: name,
+                score: `${score}/${total}`,
+                time: new Date().toLocaleTimeString('vi-VN') + ' ' + new Date().toLocaleDateString('vi-VN')
+            };
+            history.unshift(newRecord);
+            if (history.length > 5) history = history.slice(0, 5);
+            localStorage.setItem('muongThenQuizHistory', JSON.stringify(history));
+            renderScoreHistory();
+        }
+
+        function renderScoreHistory() {
+            const container = document.getElementById('score-history');
+            if (!container) return;
+            const history = JSON.parse(localStorage.getItem('muongThenQuizHistory')) || [];
+            
+            if (history.length === 0) {
+                container.innerHTML = `<p class="text-gray-400 italic">Chưa có lịch sử điểm.</p>`;
+                return;
+            }
+
+            container.innerHTML = history.map(h => `
+                <div class="flex justify-between items-center bg-white p-2 rounded border border-pink-100 shadow-2xs">
+                    <span class="font-semibold text-gray-700">🌸 ${h.name}</span>
+                    <span class="font-bold text-thaiRed">${h.score}</span>
+                    <span class="text-[10px] text-gray-400">${h.time}</span>
+                </div>
+            `).join('');
+        }
+
+        function resetQuiz() {
+            document.getElementById('quiz-result').classList.add('hidden');
+            document.getElementById('btn-submit-quiz').classList.remove('hidden');
+            renderQuiz();
+        }
+
+        function triggerConfetti() {
+            const canvas = document.getElementById('confettiCanvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            let particles = [];
+            const colors = ['#D81B60', '#FBC02D', '#2E7D32', '#7B1FA2', '#EC407A'];
+
+            for (let i = 0; i < 80; i++) {
+                particles.push({
+                    x: canvas.width / 2,
+                    y: canvas.height / 2,
+                    vx: (Math.random() - 0.5) * 12,
+                    vy: (Math.random() - 0.5) * 12 - 3,
+                    size: Math.random() * 8 + 4,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    alpha: 1
+                });
+            }
+
+            function animateConfetti() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach((p, index) => {
+                    p.x += p.vx;
+                    p.y += p.vy;
+                    p.vy += 0.15;
+                    p.alpha -= 0.015;
+
+                    ctx.save();
+                    ctx.globalAlpha = Math.max(0, p.alpha);
+                    ctx.fillStyle = p.color;
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.restore();
+
+                    if (p.alpha <= 0) particles.splice(index, 1);
+                });
+
+                if (particles.length > 0) {
+                    requestAnimationFrame(animateConfetti);
+                }
+            }
+            animateConfetti();
+        }
+
+        /* ==========================================
+           MODAL HELPER FUNCTIONS
+           ========================================== */
+        function openModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) modal.classList.add('hidden');
+        }
+
+        /* ==========================================
+           INITIALIZATION ON PAGE LOAD
+           ========================================== */
+        window.addEventListener('DOMContentLoaded', () => {
+            applySiteSettings();
+            renderCultureCards();
+            searchDictionary();
+            renderQuiz();
+            renderScoreHistory();
+        });
+    </script>
+</body>
+</html>
